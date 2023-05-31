@@ -46,7 +46,7 @@ class Product extends Model
 
     public function carts(): BelongsToMany
     {
-        return $this->belongsToMany(Cart::class);
+        return $this->belongsToMany(Cart::class, 'cart_product');
     }
 
     //Puede tener imágenes, followers y descuentos

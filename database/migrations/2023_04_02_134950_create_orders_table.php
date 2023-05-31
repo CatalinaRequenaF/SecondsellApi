@@ -25,7 +25,7 @@ return new class extends Migration
 
             //$table->string('orderItem');
 
-            $table->foreignId('user_id');
+            $table->foreignId('user_id')->nullable();
         });
     }
 

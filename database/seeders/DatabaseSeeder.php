@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
      * Seed the application's database.
      */
     public function run(): void
-    {
+    {/*
         Category::factory(10)->create();
 
         //Creación de 10 usuarios
@@ -40,8 +40,10 @@ class DatabaseSeeder extends Seeder
 
            //Añadir producto a carrito
             $product = Product::inRandomOrder()->limit(1)->first();
+        
+            //Está bien, no tocar
             $product->carts()->save($cart);
-            
+
 
             //Crear chat
             $chat = new Chat();
@@ -52,20 +54,20 @@ class DatabaseSeeder extends Seeder
 
             //Guardar
             $chat->save();
-        };
+        };*/
 
       
         
 
         Order::factory(3)->create();
 
-        
+        /*
         \App\Models\User::factory()->create([
             'name' => 'cata',
             'email' => 'cata@cata.com',
             'password' => '0000',
 
-      ]);
+      ]);*/
         }
     
 }

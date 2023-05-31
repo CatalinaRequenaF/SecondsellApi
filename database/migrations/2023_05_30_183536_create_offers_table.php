@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('offers', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->integer('emit');
+            $table->integer('emit')->nullable();
             $table->string('state');
             $table->foreignId('chat_id')->nullable();
 

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
 
-            $table->integer('emit');
+            $table->integer('emit')->nullable();
             $table->integer('categoryBlank');
             $table->boolean('categoryDisplay'); 
 

@@ -30,6 +30,6 @@ class Cart extends Model
     //Un carrito contiene uno o más productos.
     public function products(): HasMany
     {
-        return $this->hasMany(Product::class);
+        return $this->hasMany(Product::class, 'cart_product');
     }
 }
