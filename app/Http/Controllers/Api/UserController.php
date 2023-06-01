@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -80,6 +81,17 @@ class UserController extends Controller
         $user->delete();
 
         return response()->json(['message' => 'User deleted successfully']);
+    }
+
+
+    public function getUserProducts(Request $request, $userId)
+    {
+        $userProducts = Product::where('user_id', $userId)->get();
+
+        return response()->json([
+            'success' => true,
+            'data' => $userProducts
+        ]);
     }
 
 

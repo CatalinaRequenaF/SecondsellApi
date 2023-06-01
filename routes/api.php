@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\DiscountController;
 use App\Http\Controllers\Api\FollowController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\ChatController;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -30,7 +31,7 @@ use App\Http\Controllers\Api\ProductController;
 
 Route::group(['prefix' => 'auth'], function () {
     Route::post('login', [AuthController::class, 'login']);
-    Route::post('signup', [AuthController::class, 'registerart']);
+    Route::post('signup', [AuthController::class, 'register']);
   
     Route::group(['middleware' => 'auth:api'], function() {
         Route::get('logout', [AuthController::class, 'logout']);
@@ -60,21 +61,24 @@ Route::middleware('auth:sanctum')->group(function(){
     ]);
 
     //--Direcciones 
-     Route::apiResource('{user/address', AddressController::class);
+     Route::apiResource('{user}/address', AddressController::class);
 
     //--Carrito 
     Route::apiResource('{user}/cart', CartController::class);
 
     //Teléfono
-    Route::apiResource('{user}/phone', CartController::class);
+    Route::apiResource('user/phone', CartController::class);
 
     //Descuento
     Route::apiResource('{id}/discount', DiscountController::class);
 
     //--seguidores 
     Route::apiResource('{user}/followers', FollowController::class);
-    Route::apiResource('{user}/followed', FollowController::class);
+    Route::apiResource('user/followed', FollowController::class);
 
+
+    //--Chat 
+    Route::apiResource('{user}/products/', UserController::class);
 
     //--Chat 
     Route::apiResource('{user}/chats/', ChatController::class);
