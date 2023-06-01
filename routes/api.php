@@ -110,5 +110,5 @@ Route::apiResource('{product}/image', ProductController::class);
 
 //Ver todos los usuarios
 Route::apiResource('users', UserController::class)->only([
-    'index', 'show'
+    'index'
 ]);
