@@ -26,9 +26,8 @@ use App\Http\Controllers\Api\ProductController;
 |
 */
 
-
-
-//########### RUTAS QUE REQUIEREN INICIO DE SESIÓN/AUTORIZACIÓN #########
+//--------------REGISTER, LOGIN/OUT, SEE USER -------------
+//------------------------ (Auth) --------------------------
 
 Route::group(['prefix' => 'auth'], function () {
     Route::post('login', [AuthController::class, 'login']);
@@ -36,17 +35,8 @@ Route::group(['prefix' => 'auth'], function () {
 
     Route::group(['middleware' => 'auth:api'], function () {
         Route::get('logout', [AuthController::class, 'logout']);
-        Route::get('user', [AuthController::class, 'user']);
+        Route::get('user', [AuthController::class, 'user']); //User actual 
     });
-
-    Route::get('user', [AuthController::class, 'getUserByToken']);
-});
-
-//######################## USUARIO ############################
-
-//--------------------Perfil del usuario (Sanctum)----------------------------
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
 });
 
 
@@ -55,50 +45,58 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::middleware('auth:sanctum')->group(function () {
 
-    //--Crear, actualizar y borrar categorías--------------
+    //----------------------CATEGORIAS--------------
     Route::apiResource('categories', CategoryController::class)->except([
         'index', 'show'
     ]);
 
-    //--Crear, actualizar y borrar productos--------------
+    //----------------------PRODUCTOS-------------------
     Route::apiResource('products', ProductController::class)->except([
         'index', 'show'
     ]);
-    Route::get('user/{user}/products', [ProductController::class, 'getProductsFromUser']);
+
+
+    //===============RELACIONADOS CON USER==================
+
+    Route::group(['prefix' => 'user/{user}'], function () {
+        //Direcciones 
+        Route::apiResource('/address', AddressController::class);
+    
+        //Carrito 
+        Route::apiResource('/cart', CartController::class);
+    
+        //Teléfono
+        Route::apiResource('/phone', CartController::class);
+    
+        //Seguidores 
+        Route::apiResource('/followers', FollowController::class);
+        Route::apiResource('/followed', FollowController::class);
+    
+        //Pedidos
+        Route::apiResource('/order', OrderController::class);
+    
+        //Chats
+        Route::get('/chats', [ChatController::class, 'getChatsFromUser']);
+        Route::apiResource('chats', ChatController::class);
+    
+        //Productos
+        Route::get('/products', [ProductController::class, 'getProductsFromUser']);    
+    });
+
 
     
-
-    //--Direcciones 
-    Route::apiResource('user/{user}/address', AddressController::class);
-
-    //--Carrito 
-    Route::apiResource('user/{user}/cart', CartController::class);
-
-    //Teléfono
-    Route::apiResource('user/user/phone', CartController::class);
-
-    //Descuento
-    Route::apiResource('{id}/discount', DiscountController::class);
-
-    //--seguidores 
-    Route::apiResource('user/{user}/followers', FollowController::class);
-    Route::apiResource('user/{user}/followed', FollowController::class);
-
-    //Imágenes de producto
-
-    //Pedidos
-    Route::apiResource('user/{user}/order', OrderController::class);
-
-    
-    //--Prefijo USER
-    Route::get('user/{user}/chats', [ChatController::class, 'getChatsFromUser']);
-    Route::apiResource('chats', ChatController::class);
+        //Encontrar X TOKEN!
+        Route::get('/token/{token}', [UserController::class, 'findByToken']);
 
 
-    //CHATS Y MENSAJES
+    //================================================================
+
+
+    //MENSAJES, "" DE LOS CHATS)
     Route::apiResource('messages', MessageController::class);
     Route::get('chat/{chat}/messages', [MessageController::class, 'getAllMessagesFromChat']);
 //    Route::apiResource('chat', ChatController::class);
+
 });
 
 //#################### Grupo que no requiere autorizacion ####################
