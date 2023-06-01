@@ -20,11 +20,4 @@ class Messagge extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
-
-     //Receptor
-     public function receptor()
-     {
-         return $this->belongsTo(User::class, 'user_id');
-     }
-
 }
