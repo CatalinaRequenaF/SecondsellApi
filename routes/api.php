@@ -48,6 +48,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 
+
+
 Route::middleware('auth:sanctum')->group(function(){
 
     //--Crear, actualizar y borrar categorías--------------
@@ -61,33 +63,33 @@ Route::middleware('auth:sanctum')->group(function(){
     ]);
 
     //--Direcciones 
-     Route::apiResource('{user}/address', AddressController::class);
+     Route::apiResource('user/{user}/address', AddressController::class);
 
     //--Carrito 
-    Route::apiResource('{user}/cart', CartController::class);
+    Route::apiResource('user/{user}/cart', CartController::class);
 
     //Teléfono
-    Route::apiResource('user/phone', CartController::class);
+    Route::apiResource('user/user/phone', CartController::class);
 
     //Descuento
     Route::apiResource('{id}/discount', DiscountController::class);
 
     //--seguidores 
-    Route::apiResource('{user}/followers', FollowController::class);
-    Route::apiResource('user/followed', FollowController::class);
+    Route::apiResource('user/{user}/followers', FollowController::class);
+    Route::apiResource('user/{user}/followed', FollowController::class);
 
 
     //--Chat 
-    Route::apiResource('{user}/products/', UserController::class);
+    Route::apiResource('user/{user}/products/', UserController::class);
 
     //--Chat 
-    Route::apiResource('{user}/chats/', ChatController::class);
-    Route::apiResource('{user}/chat/messages/', ChatController::class);
+    Route::apiResource('user/{user}/chats/', ChatController::class);
+    Route::apiResource('user/{user}/chat/messages/', ChatController::class);
 
     //Imágenes de producto
 
     //Pedidos
-    Route::apiResource('{user}/order', OrderController::class);
+    Route::apiResource('user/{user}/order', OrderController::class);
 
 });
 
@@ -105,3 +107,8 @@ Route::apiResource('products', ProductController::class)->only([
 
 //Imágenes de producto
 Route::apiResource('{product}/image', ProductController::class);
+
+//Ver todos los usuarios
+Route::apiResource('users', UserController::class)->only([
+    'index', 'show'
+]);
