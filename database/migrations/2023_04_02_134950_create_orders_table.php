@@ -14,8 +14,7 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-
-       
+            
             $table->decimal('subtotal', 8, 2)->default(0);
 
             $table->float('total', 8, 2)->default(0);

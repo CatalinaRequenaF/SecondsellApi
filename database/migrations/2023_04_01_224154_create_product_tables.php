@@ -18,7 +18,7 @@ return new class extends Migration
             $table->decimal('price');
             $table->text('state'); //Muy usado, semi nuevo, nuevo
             $table->boolean('active'); //Disponible (o no)
-            $table->string('photo'); 
+            $table->json('photo')->default(json_encode(['none', 'none', 'none']));            
             $table->timestamps();
 
 

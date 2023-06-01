@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -84,4 +85,10 @@ class ProductController extends Controller
         $product->delete();
         return response()->json(null, 204);
     }
+
+    
+   public function getProductsFromUser(User $user)
+   {
+    return response()->json($user->products);    
+   }
 }

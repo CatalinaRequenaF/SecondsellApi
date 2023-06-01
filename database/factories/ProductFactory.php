@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\Category;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
 /**
@@ -22,8 +23,8 @@ class ProductFactory extends Factory
         return [
         'name' => fake()->word(),
         'description' => fake()->sentence(),
-        'photo' => fake()->name().'.jpg',
-        'state' => fake()->randomElement(['new', 'good', 'used', ]),
+        'photo' => json_encode([fake()->imageUrl(), fake()->imageUrl(), fake()->imageUrl()]),
+        'state' => fake()->randomElement(['new', 'mid', 'good', 'bad']),
         'price' => fake()->randomDigit(),
         'active'=>  fake()->boolean(),
         'seller_id'=>User::find(1),

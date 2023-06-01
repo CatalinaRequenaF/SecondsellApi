@@ -110,6 +110,5 @@ class UserController extends Controller
             'message' => 'Usuario no encontrado'
         ], 404);
     }*/
-
     
 }

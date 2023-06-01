@@ -23,6 +23,7 @@ return new class extends Migration
             $table->foreign('emit')->references('id')->on('users');
 
 
+
         });
     }
 

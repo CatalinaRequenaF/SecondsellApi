@@ -4,10 +4,11 @@ use App\Http\Controllers\Api\AddressController;
 use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\DiscountController;
 use App\Http\Controllers\Api\FollowController;
+use App\Http\Controllers\Api\MessageController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\UserController;
-use App\Http\Controllers\ChatController;
+use App\Http\Controllers\Api\ChatController;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -32,14 +33,13 @@ use App\Http\Controllers\Api\ProductController;
 Route::group(['prefix' => 'auth'], function () {
     Route::post('login', [AuthController::class, 'login']);
     Route::post('signup', [AuthController::class, 'register']);
-  
-    Route::group(['middleware' => 'auth:api'], function() {
+
+    Route::group(['middleware' => 'auth:api'], function () {
         Route::get('logout', [AuthController::class, 'logout']);
         Route::get('user', [AuthController::class, 'user']);
     });
 
     Route::get('user', [AuthController::class, 'getUserByToken']);
-
 });
 
 //######################## USUARIO ############################
@@ -53,7 +53,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 
-Route::middleware('auth:sanctum')->group(function(){
+Route::middleware('auth:sanctum')->group(function () {
 
     //--Crear, actualizar y borrar categorías--------------
     Route::apiResource('categories', CategoryController::class)->except([
@@ -64,9 +64,12 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::apiResource('products', ProductController::class)->except([
         'index', 'show'
     ]);
+    Route::get('user/{user}/products', [ProductController::class, 'getProductsFromUser']);
+
+    
 
     //--Direcciones 
-     Route::apiResource('user/{user}/address', AddressController::class);
+    Route::apiResource('user/{user}/address', AddressController::class);
 
     //--Carrito 
     Route::apiResource('user/{user}/cart', CartController::class);
@@ -81,19 +84,21 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::apiResource('user/{user}/followers', FollowController::class);
     Route::apiResource('user/{user}/followed', FollowController::class);
 
-
-    //--Chat 
-    Route::apiResource('user/{user}/products/', UserController::class);
-
-    //--Chat 
-    Route::apiResource('user/{user}/chats/', ChatController::class);
-    Route::apiResource('user/{user}/chat/messages/', ChatController::class);
-
     //Imágenes de producto
 
     //Pedidos
     Route::apiResource('user/{user}/order', OrderController::class);
 
+    
+    //--Prefijo USER
+    Route::get('user/{user}/chats', [ChatController::class, 'getChatsFromUser']);
+    Route::apiResource('chats', ChatController::class);
+
+
+    //CHATS Y MENSAJES
+    Route::apiResource('messages', MessageController::class);
+    Route::get('chat/{chat}/messages', [MessageController::class, 'getAllMessagesFromChat']);
+//    Route::apiResource('chat', ChatController::class);
 });
 
 //#################### Grupo que no requiere autorizacion ####################

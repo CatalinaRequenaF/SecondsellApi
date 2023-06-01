@@ -6,6 +6,7 @@ namespace Database\Seeders;
 use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Chat;
+use App\Models\Message;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
@@ -21,6 +22,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+
+        Message::factory(4)->create();
+
         $this->call(CategorySeeder::class);
 
         //Creación de 10 usuarios
@@ -59,7 +63,7 @@ class DatabaseSeeder extends Seeder
             $chat->save();
         };
 
-      
+
         
 
         Order::factory(3)->create();
