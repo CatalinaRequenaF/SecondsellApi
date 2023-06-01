@@ -10,19 +10,23 @@ use Illuminate\Support\Facades\Auth;
 class AuthController extends Controller
 {
   public function register (Request $request) {
-        
 
-        $data = $request->validate([
-            'name' => 'required|string',
-            'email' => 'required|string|unique:users,email',
-            'password' => 'required|string|confirmed'
-        ]);
+    $data = $request->validate([
+        'name' => 'required|string',
+        'email' => 'required|string|unique:users,email',
+        'password' => 'required|string',
+        'username' => 'required|string',
+        'lastname'=> 'required|string'
+    ]);
 
-        $user = User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password'])
-        ]);
+    $user = User::create([
+        'name' => $data['name'],
+        'email' => $data['email'],
+        'password' => bcrypt($data['password']),
+        'username' => $data['username'],
+        'lastname'=> $data['lastname'],
+        'photo'=> 'default'
+    ]);
  
         $token = $user->createToken('apiToken')->plainTextToken;
         

@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        Category::factory(10)->create();
+        $this->call(CategorySeeder::class);
 
         //Creación de 10 usuarios
         User::factory(10)
@@ -44,10 +44,13 @@ class DatabaseSeeder extends Seeder
             //Está bien, no tocar
             $product->carts()->save($cart);
 
-
+            
             //Crear chat
             $chat = new Chat();
-            $chat->user_id = $user->id;
+            $user2 = User::inRandomOrder()->limit(1)->first();
+            $chat->emit = $user->id;
+            $chat->recept = $user2->id;
+
        
             //Asignar el mismo producto a chat
             $chat->product_id = $product->id;

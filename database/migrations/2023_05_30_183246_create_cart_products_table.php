@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('cart_product', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->decimal('price');
+            $table->decimal('price')->nullable();
 
             //$table->foreignId('discount_id')->nullable();
             $table->foreignId('product_id');

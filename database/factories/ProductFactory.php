@@ -25,7 +25,7 @@ class ProductFactory extends Factory
         'photo' => fake()->name().'.jpg',
         'state' => fake()->randomElement(['new', 'good', 'used', ]),
         'price' => fake()->randomDigit(),
-        'active'=>  fake()->randomElement(['active', 'selled', 'inactive', ]),
+        'active'=>  fake()->boolean(),
         'seller_id'=>User::find(1),
         'category_id'=>Category::find(1)
         ];

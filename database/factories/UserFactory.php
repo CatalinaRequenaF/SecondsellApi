@@ -26,7 +26,9 @@ class UserFactory extends Factory
         ];*/
 
         return [
-            'name' => $this->faker->name(),//            'email' => 'cata@example.com',
+            'name' => $this->faker->name(),//            
+            'lastname' =>  $this->faker->lastName(),
+            'username' =>  $this->faker->userName(),         
             'email' => $this->faker->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => '0000', // password

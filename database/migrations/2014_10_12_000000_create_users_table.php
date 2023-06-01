@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('email')->unique();  
             $table->string('photo')->default('default');
 
-            $table->float('coin');
+            $table->float('coin')->default(0);
 
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

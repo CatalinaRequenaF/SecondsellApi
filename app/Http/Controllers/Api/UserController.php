@@ -93,6 +93,23 @@ class UserController extends Controller
         ]);
     }
 
+    /*
+    public function getUserByToken($token)
+    {
+        $user = User::where('api_token', $token)->first();
+
+        if ($user) {
+            return response()->json([
+                'success' => true,
+                'data' => $user
+            ]);
+        }
+
+        return response()->json([
+            'success' => false,
+            'message' => 'Usuario no encontrado'
+        ], 404);
+    }*/
 
     
 }
