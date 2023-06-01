@@ -13,15 +13,10 @@ return new class extends Migration
     {
         Schema::create('cart_product', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();/*
-            $table->string('emit')->nullable();
+            $table->timestamps();
             $table->decimal('price');
 
-            ///Fk's
-            $table->foreignId('order_id')->nullable();
-            $table->foreignId('buyer_id')->nullable();
-
-            //$table->foreignId('discount_id')->nullable();*/
+            //$table->foreignId('discount_id')->nullable();
             $table->foreignId('product_id');
             $table->foreignId('cart_id');
         });

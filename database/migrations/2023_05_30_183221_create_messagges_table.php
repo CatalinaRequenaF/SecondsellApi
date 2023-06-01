@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('messagges', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-
             $table->integer('emit')->nullable();
-            $table->integer('price');
             $table->integer('state');
+
             $table->foreignId('chat_id');
+            $table->foreignId('product_id');
 
         });
     }

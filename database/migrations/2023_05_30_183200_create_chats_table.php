@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('recept')->nullable();
             $table->foreignId('product_id')->nullable();
             $table->foreignId('user_id');
+            $table->boolean('closed');
         });
     }
 
