@@ -16,6 +16,8 @@ return new class extends Migration
             $table->timestamps();
             $table->integer('emit')->nullable();
             $table->integer('state');
+            $table->string('message');
+
 
             $table->foreignId('chat_id');
             $table->foreignId('product_id');
